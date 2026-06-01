@@ -1,0 +1,53 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f5f6f8;
+  margin: 0;
+  padding: 16px;
+  color: #111;
+}
+
+h2 {
+  margin: 10px 0;
+  font-weight: 600;
+}
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  margin: 10px 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #222;
+}
+
+.log {
+  font-size: 13px;
+  padding: 4px 0;
+  border-left: 2px solid #ccc;
+  padding-left: 8px;
+  margin: 4px 0;
+  color: #333;
+}
+
+.log.ai {
+  color: #1f4ed8;
+}
+
+.log.final {
+  color: #0b7a2f;
+  font-weight: 600;
+}
