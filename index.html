@@ -1,2 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Sky Eagle Dispatch</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="nav">
+  <a href="index.html">Dispatch</a>
+  <a href="trip.html">History</a>
+  <a href="payment.html">Payment</a>
+</div>
+
+<div class="card">
+  <h2>Sky Eagle Dispatch</h2>
+
+  <button onclick="callAI('平原島')">Plains</button>
+  <button onclick="callAI('森林島')">Forest</button>
+  <button onclick="callAI('礦山島')">Mine</button>
+  <button onclick="callAI('沙灘島')">Beach</button>
+</div>
+
+<div class="card">
+  <h3>System Log</h3>
+  <div id="aiLog"></div>
+</div>
+
+<div class="card">
+  <h3 id="result">Idle</h3>
+</div>
+
 <script src="nav.js"></script>
 <script src="app.js"></script>
+
+</body>
+</html>
