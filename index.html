@@ -3,20 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Sky Eagle Dispatch</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="card">
-  <div class="title en" id="title">Sky Eagle Dispatch</div>
+<div class="nav">
+  <a href="index.html">Dispatch</a>
+  <a href="trip.html">History</a>
+  <a href="payment.html">Payment</a>
 </div>
 
 <div class="card">
-  <p id="choose">Choose Destination</p>
+  <h2 id="title">Sky Eagle Dispatch</h2>
 
   <button onclick="callAI('平原島')">Plains</button>
   <button onclick="callAI('森林島')">Forest</button>
@@ -33,17 +32,7 @@
   <p id="result">Idle</p>
 </div>
 
-<div class="card">
-  <p id="historyTitle">History</p>
-  <div id="history"></div>
-</div>
-
-<div class="card">
-  <button onclick="setLang('zh')">中文</button>
-  <button onclick="setLang('en')">English</button>
-  <button onclick="setLang('sky')">空語</button>
-</div>
-
+<script src="nav.js"></script>
 <script src="app.js"></script>
 
 </body>
