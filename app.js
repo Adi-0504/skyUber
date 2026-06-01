@@ -1,6 +1,7 @@
+let lang = "en";
 let trips = [];
 
-/* System Data */
+/* 🌍 世界 */
 const world = {
   islands: {
     "平原島": 1,
@@ -11,121 +12,125 @@ const world = {
   eagles: [
     { name: "Swift Tawa", cost: 1 },
     { name: "Wind Tawa", cost: 1.2 },
-    { name: "Root Tawa", cost: 1.1 },
-    { name: "Gran Tawa", cost: 2 }
+    { name: "Root Tawa", cost: 1.1 }
   ],
-  weather: ["Clear", "Windy", "Storm", "Fog"]
+  weather: ["Clear", "Windy", "Fog", "Storm"]
 };
 
-let currentWeather = randomWeather();
+let weather = randomWeather();
 
-/* Utils */
+/* 🌐 i18n */
+const i18n = {
+  zh: {
+    choose: "選擇目的地",
+    log: "系統紀錄",
+    history: "行程紀錄",
+    idle: "待命中",
+    done: "完成派遣"
+  },
+  en: {
+    choose: "Choose Destination",
+    log: "System Log",
+    history: "History",
+    idle: "Idle",
+    done: "Dispatch Complete"
+  },
+  sky: {
+    choose: "গओয ςς",
+    log: "ςγς λσg",
+    history: "τςιρ",
+    idle: "ιdλε",
+    done: "ςσμρλτε"
+  }
+};
+
+function t(k) {
+  return i18n[lang][k] || k;
+}
+
+/* ⏳ 工具 */
 function sleep(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
 
-function log(text, type = "") {
+function log(text, type="") {
   const el = document.createElement("div");
   el.className = "log " + type;
   el.textContent = text;
   document.getElementById("aiLog").appendChild(el);
 }
 
-/* Weather */
+/* 🌫️ 天氣 */
 function randomWeather() {
   return world.weather[Math.floor(Math.random() * world.weather.length)];
 }
 
-/* AI Engine */
+/* 🦅 AI */
 function pickEagle() {
   return world.eagles[Math.floor(Math.random() * world.eagles.length)];
 }
 
-function calculateCost(island, eagle) {
-  let base = 10;
-  let islandMult = world.islands[island] || 1;
-
-  let weatherMult = 1;
-  if (currentWeather === "Storm") weatherMult = 1.2;
-  if (currentWeather === "Fog") weatherMult = 1.4;
-
-  return Math.round(base * islandMult * eagle.cost * weatherMult);
+function cost(island, eagle) {
+  return Math.round(10 * world.islands[island] * eagle.cost);
 }
 
-/* Typing AI log */
-async function typeLog(text, type = "") {
+/* 🧠 typing log */
+async function typeLog(text, type="") {
   const el = document.createElement("div");
   el.className = "log " + type;
   document.getElementById("aiLog").appendChild(el);
 
   for (let i = 0; i < text.length; i++) {
     el.textContent += text[i];
-    await sleep(18);
+    await sleep(15);
   }
 }
 
-/* Payment simulation */
-async function payment(cost) {
-  const result = document.getElementById("result");
+/* 💳 payment */
+async function pay(amount) {
+  document.getElementById("result").textContent = "Processing";
 
-  result.textContent = "Processing payment";
-  await sleep(700);
+  await sleep(600);
+  document.getElementById("result").textContent = "Verifying";
 
-  result.textContent = "Verifying currency (mato damu)";
-  await sleep(700);
-
-  result.textContent = "Payment completed: " + cost;
-  await sleep(500);
+  await sleep(600);
+  document.getElementById("result").textContent = "Paid: " + amount;
 }
 
-/* Main AI flow */
+/* 🚀 main */
 async function callAI(island) {
 
   document.getElementById("aiLog").innerHTML = "";
-  document.getElementById("result").textContent = "Initializing";
 
-  await typeLog("System request received");
-  await sleep(300);
+  await typeLog("Init system");
+  await typeLog("Weather: " + weather);
 
-  await typeLog("Weather condition: " + currentWeather, "ai");
-  await sleep(300);
-
-  await typeLog("Analyzing destination: " + island, "ai");
-  await sleep(400);
-
-  await typeLog("Searching available Sky Eagles");
-  await sleep(500);
+  await typeLog("Analyze: " + island);
 
   const eagle = pickEagle();
-  await typeLog("Eagle selected: " + eagle.name, "ai");
-  await sleep(400);
+  await typeLog("Eagle: " + eagle.name);
 
-  await typeLog("Calculating route cost");
-  await sleep(500);
+  const price = cost(island, eagle);
+  await typeLog("Cost: " + price);
 
-  const cost = calculateCost(island, eagle);
-  await typeLog("Estimated cost: " + cost, "ai");
-  await sleep(400);
+  await pay(price);
 
-  await typeLog("Starting payment process");
-  await payment(cost);
-
-  await typeLog("Dispatch confirmed", "final");
+  await typeLog("Complete", "final");
 
   trips.push({
+    island,
     eagle: eagle.name,
-    to: island,
-    cost,
-    weather: currentWeather,
-    time: new Date().toLocaleTimeString()
+    price,
+    weather
   });
 
-  renderHistory();
-  currentWeather = randomWeather();
+  render();
+
+  weather = randomWeather();
 }
 
-/* History */
-function renderHistory() {
+/* 📜 history */
+function render() {
   let html = "";
 
   for (let i = trips.length - 1; i >= 0; i--) {
@@ -133,14 +138,24 @@ function renderHistory() {
 
     html += `
       <div class="card">
-        <div>Sky Eagle: ${t.eagle}</div>
-        <div>Route: ${t.to}</div>
-        <div>Weather: ${t.weather}</div>
-        <div>Cost: ${t.cost}</div>
-        <div>Time: ${t.time}</div>
+        ${t.island}<br>
+        ${t.eagle}<br>
+        ${t.weather}<br>
+        ${t.price}
       </div>
     `;
   }
 
   document.getElementById("history").innerHTML = html;
+
+  document.getElementById("choose").textContent = t("choose");
+  document.getElementById("logTitle").textContent = t("log");
+  document.getElementById("historyTitle").textContent = t("history");
+  document.getElementById("result").textContent = t("idle");
+}
+
+/* 🌍 language */
+function setLang(l) {
+  lang = l;
+  render();
 }
