@@ -3,35 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <title>Sky Eagle Dispatch</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h2>◆ Sky Eagle Dispatch</h2>
-
 <div class="card">
-  <p>Choose Destination</p>
-
-  <button onclick="callAI('平原島')">◆ Plains Island</button>
-  <button onclick="callAI('森林島')">◆ Forest Island</button>
-  <button onclick="callAI('礦山島')">◆ Mine Island</button>
-  <button onclick="callAI('沙灘島')">◆ Beach Island</button>
+  <div class="title en" id="title">Sky Eagle Dispatch</div>
 </div>
 
 <div class="card">
-  <p>System Log</p>
+  <p id="choose">Choose Destination</p>
+
+  <button onclick="callAI('平原島')">Plains</button>
+  <button onclick="callAI('森林島')">Forest</button>
+  <button onclick="callAI('礦山島')">Mine</button>
+  <button onclick="callAI('沙灘島')">Beach</button>
+</div>
+
+<div class="card">
+  <p id="logTitle">System Log</p>
   <div id="aiLog"></div>
 </div>
 
 <div class="card">
-  <p>Transaction</p>
-  <div id="result">Idle</div>
+  <p id="result">Idle</p>
 </div>
 
 <div class="card">
-  <p>Trip History</p>
+  <p id="historyTitle">History</p>
   <div id="history"></div>
+</div>
+
+<div class="card">
+  <button onclick="setLang('zh')">中文</button>
+  <button onclick="setLang('en')">English</button>
+  <button onclick="setLang('sky')">空語</button>
 </div>
 
 <script src="app.js"></script>
