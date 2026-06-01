@@ -1,5 +1,7 @@
-let trips = JSON.parse(localStorage.getItem("trips") || "[]");
+function loadTrips(){
+  return JSON.parse(localStorage.getItem("trips") || "[]");
+}
 
-function saveTrips(){
+function saveTrips(trips){
   localStorage.setItem("trips", JSON.stringify(trips));
 }
