@@ -1,13 +1,16 @@
 let weather = "Clear";
 
 function sleep(ms){
-  return new Promise(r=>setTimeout(r,ms));
+  return new Promise(r => setTimeout(r, ms));
 }
 
 function log(t){
+  const box = document.getElementById("aiLog");
+  if(!box) return;
+
   const el = document.createElement("div");
   el.textContent = t;
-  document.getElementById("aiLog").appendChild(el);
+  box.appendChild(el);
 }
 
 function pickEagle(){
@@ -17,31 +20,35 @@ function pickEagle(){
 
 async function callAI(island){
 
-  document.getElementById("aiLog").innerHTML = "";
+  const box = document.getElementById("aiLog");
+  if(box) box.innerHTML = "";
 
   log("Init");
-  await sleep(400);
+  await sleep(300);
 
   log("Weather: " + weather);
-  await sleep(400);
+  await sleep(300);
 
   log("Target: " + island);
-  await sleep(400);
+  await sleep(300);
 
   const eagle = pickEagle();
   log("Eagle: " + eagle);
-  await sleep(400);
+  await sleep(300);
 
   const price = Math.floor(Math.random()*50)+10;
   log("Price: " + price);
 
   document.getElementById("result").textContent = "Done";
 
+  // ✔ 修正：統一用 nav.js
+  const trips = loadTrips();
   trips.push({
     island,
     eagle,
-    price
+    price,
+    time: new Date().toISOString()
   });
 
-  localStorage.setItem("trips", JSON.stringify(trips));
+  saveTrips(trips);
 }
