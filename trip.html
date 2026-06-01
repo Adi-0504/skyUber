@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Trip History</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="nav">
+  <a href="index.html">Dispatch</a>
+  <a href="trip.html">History</a>
+  <a href="payment.html">Payment</a>
+</div>
+
+<div class="card">
+  <h2>Trip History</h2>
+  <div id="history"></div>
+</div>
+
 <script src="nav.js"></script>
+
+<script>
+const trips = loadTrips();
+const box = document.getElementById("history");
+
+if(!box) {
+  console.log("missing history container");
+} 
+else if(trips.length === 0){
+  box.innerHTML = "<p>No trips yet</p>";
+} 
+else {
+  box.innerHTML = trips
+    .slice()
+    .reverse()
+    .map(t => `
+      <div class="card">
+        <b>${t.island}</b><br>
+        Eagle: ${t.eagle}<br>
+        Price: ${t.price}<br>
+        Time: ${t.time}
+      </div>
+    `).join("");
+}
+</script>
+
+</body>
+</html>
