@@ -1,1 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>History</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<div class="nav">
+  <a href="index.html">Dispatch</a>
+  <a href="trip.html">History</a>
+  <a href="payment.html">Payment</a>
+</div>
+
+<div class="card">
+  <h2>Trip History</h2>
+  <div id="history"></div>
+</div>
+
+<script src="nav.js"></script>
+<script>
+const data = JSON.parse(localStorage.getItem("trips") || "[]");
+
+let html = "";
+
+for (let i = data.length - 1; i >= 0; i--) {
+  const t = data[i];
+
+  html += `
+    <div class="card">
+      ${t.island}<br>
+      ${t.eagle}<br>
+      ${t.price}
+    </div>
+  `;
+}
+
+document.getElementById("history").innerHTML = html;
+</script>
+
+</body>
+</html>
