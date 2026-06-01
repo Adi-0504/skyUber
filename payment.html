@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Payment</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="nav">
+  <a href="index.html">Dispatch</a>
+  <a href="trip.html">History</a>
+  <a href="payment.html">Payment</a>
+</div>
+
+<div class="card">
+  <h2>Payment Center</h2>
+
+  <button onclick="pay()">Pay Now</button>
+
+  <p id="status"></p>
+</div>
+
 <script src="nav.js"></script>
+
+<script>
+function sleep(ms){
+  return new Promise(r => setTimeout(r, ms));
+}
+
+async function pay(){
+  const status = document.getElementById("status");
+
+  status.textContent = "Processing...";
+  await sleep(500);
+
+  status.textContent = "Verifying...";
+  await sleep(500);
+
+  status.textContent = "Completed ✔";
+}
+</script>
+
+</body>
+</html>
